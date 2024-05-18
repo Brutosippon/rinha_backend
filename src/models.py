@@ -6,7 +6,6 @@ db = SQLAlchemy()
 
 class Person(db.Model):
     __tablename__ = 'persons'
-    
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     nome = db.Column(db.String(100), nullable=False)
     apelido = db.Column(db.String(32), nullable=False)

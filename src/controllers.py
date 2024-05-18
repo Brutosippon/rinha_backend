@@ -1,8 +1,8 @@
 from flask import request, jsonify, Blueprint
-from models import db, Person
-from datetime import datetime
+from .models import db, Person
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm.exc import NoResultFound
+from datetime import datetime
 
 person_bp = Blueprint('person_bp', __name__)
 
@@ -35,7 +35,7 @@ def get_person(id):
             'id': str(person.id),
             'nome': person.nome,
             'apelido': person.apelido,
-            'nascimento': person.nascimento.strftime('%Y-%m-%d'), #isoformat()
+            'nascimento': person.nascimento.isoformat(), #strftime('%Y-%m-%d'), 
             'stack': person.stack
         }),200
     except NoResultFound:
@@ -59,7 +59,7 @@ def search_person():
         'id': str(person.id),
         'nome': person.nome,
         'apelido': person.apelido,
-        'nascimento': person.nascimento.strftime('%Y-%m-%d'), #isoformat()
+        'nascimento': person.nascimento.isoformat(), #strftime('%Y-%m-%d')
         'stack': person.stack
     } for person in persons]), 200
 
