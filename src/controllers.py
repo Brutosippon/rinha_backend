@@ -8,8 +8,8 @@ person_bp = Blueprint('person_bp', __name__)
 
 @person_bp.route('/pessoas', methods=['POST'])
 def create_person():
-    data = request.get_json()   
-    
+    data = request.get_json()
+
     # Validations
     errors = []
     if not isinstance(data.get('apelido'), str) or len(data['apelido']) > 32:
@@ -29,13 +29,12 @@ def create_person():
     if errors:
         return jsonify({'error': 'Bad request', 'details': errors}), 400
 
-    
     try:
         person = Person(
-            nome=data.get['nome'], 
-            apelido=data.get['apelido'], 
-            nascimento=data.get['nascimento'], 
-            stack=data.get['stack', []]
+            nome=data['nome'], 
+            apelido=data['apelido'], 
+            nascimento=nascimento, 
+            stack=data.get('stack', [])
         )
         db.session.add(person)
         db.session.commit()
@@ -43,11 +42,9 @@ def create_person():
     except IntegrityError:
         db.session.rollback()
         return jsonify({'error': 'Apelido must be unique'}), 422
-    except KeyError:
-        return jsonify({'error': 'Bad request'}), 400
     except Exception as e:
         return jsonify({'message': f'An error occurred: {e}'}), 500
-    
+
 @person_bp.route('/pessoas/<uuid:id>', methods=['GET'])
 def get_person(id):
     try:
@@ -56,9 +53,9 @@ def get_person(id):
             'id': str(person.id),
             'nome': person.nome,
             'apelido': person.apelido,
-            'nascimento': person.nascimento.isoformat(), #strftime('%Y-%m-%d'), 
+            'nascimento': person.nascimento.isoformat(), 
             'stack': person.stack
-        }),200
+        }), 200
     except NoResultFound:
         return jsonify({'error': 'Person not found'}), 404
     except Exception as e:
@@ -66,23 +63,26 @@ def get_person(id):
 
 @person_bp.route('/pessoas', methods=['GET'])
 def search_person():
-    term =  request.args.get('t')
+    term = request.args.get('t')
     if not term:
         return jsonify({'error': 'Search term is required'}), 400
     
+    term = f'%{term}%'
     persons = Person.query.filter(
-        (Person.nome.ilike(f'%{term}%')) | 
-        (Person.apelido.ilike(f'%{term}%')) |
+        (Person.nome.ilike(term)) | 
+        (Person.apelido.ilike(term)) |
         (Person.stack.any(term))
     ).limit(50).all()
     
-    return jsonify([{
+    result = [{
         'id': str(person.id),
         'nome': person.nome,
         'apelido': person.apelido,
-        'nascimento': person.nascimento.isoformat(), #strftime('%Y-%m-%d')
+        'nascimento': person.nascimento.isoformat(), 
         'stack': person.stack
-    } for person in persons]), 200
+    } for person in persons]
+    
+    return jsonify(result), 200
 
 @person_bp.route('/contagem-pessoas', methods=['GET'])
 def count_person():
