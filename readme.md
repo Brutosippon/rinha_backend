@@ -42,37 +42,26 @@ Clone o repositório de testes do GitHub para sua máquina local:
 ```
 git clone https://github.com/zanfranceschi/rinha-de-backend-2023-q3.git
 
-
-
 Navegue até o diretório de testes dentro do repositório clonado:
-
-
-
 cd rinha-de-backend-2023-q3/teste/gatling
 
 Passo 1: Instalar Gatling (Opcional)
 
 Se você ainda não instalou o Gatling, execute o script de instalação:
-
-
-
 ./install-gatling
 
 Este script irá baixar e configurar o Gatling no seu sistema.
 Passo 2: Gerar Dados de Teste
-
 Agora, você precisa gerar dados de teste usando o Faker ou o gerador personalizado. Escolha uma das opções abaixo:
 Usando Faker como Gerador:
 
-
+npm install # Instale as dependências necessárias
 
 cd geradores/faker
-npm install # Instale as dependências necessárias
 ./gerar-pessoas > ../../user-files/resources/pessoas-payloads.tsv
 ./gerar-termos-busca > ../../user-files/resources/termos-busca.tsv
 
 Usando o Gerador Personalizado (Strings Aleatórias):
-
 cd geradores/customizado
 ./gerar-pessoas > ../../user-files/resources/pessoas-payloads.tsv
 ./gerar-termos-busca > ../../user-files/resources/termos-busca.tsv
@@ -80,11 +69,11 @@ cd geradores/customizado
 Passo 3: Executar o Teste do Gatling
 
 Navegue até o diretório do Gatling:
-
-cd ~/Downloads/rinha-de-backend-2023-q3-main/teste/gatling
-
 Execute o teste do Gatling:
 
+cd ~/Downloads/rinha-de-backend-2023-q3-main/teste/gatling
 ./run-test
+
+
 
 Este script irá executar os cenários de teste do Gatling usando os dados gerados.
