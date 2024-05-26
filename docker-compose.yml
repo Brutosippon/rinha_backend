@@ -6,6 +6,8 @@ services:
       - DATABASE_URL=postgresql://user:password@db:5432/mydatabase
     expose:
       - "5000"
+    depends_on:
+      - db
     deploy:
       resources:
         limits:
@@ -18,6 +20,8 @@ services:
       - DATABASE_URL=postgresql://user:password@db:5432/mydatabase
     expose:
       - "5000"
+    depends_on:
+      - db
     deploy:
       resources:
         limits:

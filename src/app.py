@@ -1,6 +1,6 @@
 import logging
 from flask import Flask, jsonify
-#from flask_migrate import Migrate
+from flask_migrate import Migrate
 from werkzeug.exceptions import HTTPException
 from controllers import person_bp
 from models import db
@@ -13,7 +13,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 logging.basicConfig(filename='app.log', level=logging.INFO)
 
 db.init_app(app)
-#migrate = Migrate(app, db) 
+migrate = Migrate(app, db) 
+
 app.register_blueprint(person_bp)
 
 @app.errorhandler(Exception)
