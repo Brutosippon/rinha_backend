@@ -6,6 +6,8 @@ services:
       - DATABASE_URL=postgresql://user:password@db:5432/mydatabase
     expose:
       - "5000"
+    ports:
+      - "5001:5000" # Map port 5001 on host to port 5000 on container
     depends_on:
       - db
     deploy:
@@ -20,6 +22,8 @@ services:
       - DATABASE_URL=postgresql://user:password@db:5432/mydatabase
     expose:
       - "5000"
+    ports:
+      - "5002:5000" # Map port 5002 on host to port 5000 on container
     depends_on:
       - db
     deploy:

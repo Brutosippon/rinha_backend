@@ -53,12 +53,12 @@ Escolha uma das opções abaixo:
 
 1-Usando Faker como Gerador:
 npm install # Instale as dependências necessárias
-cd geradores/faker
+cd ~/Downloads/rinha-de-backend-2023-q3-main/teste/gatling/geradores/faker
 ./gerar-pessoas > ../../user-files/resources/pessoas-payloads.tsv
 ./gerar-termos-busca > ../../user-files/resources/termos-busca.tsv
 
 2-Usando o Gerador Personalizado (Strings Aleatórias):
-cd geradores/customizado
+cd ~/Downloads/rinha-de-backend-2023-q3-main/teste/gatling/geradores/customizado
 ./gerar-pessoas > ../../user-files/resources/pessoas-payloads.tsv
 ./gerar-termos-busca > ../../user-files/resources/termos-busca.tsv
 
@@ -66,7 +66,7 @@ cd geradores/customizado
 Navegue até o diretório do Gatling:
 Execute o teste do Gatling:
 
-cd ~/Downloads/rinha-de-backend-2023-q3-main/teste/gatling
+cd ~/Downloads/rinha-de-backend-2023-q3-main/teste/gatling/
 ./run-test
 
 Este script irá executar os cenários de teste do Gatling usando os dados gerados.
