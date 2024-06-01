@@ -34,17 +34,45 @@ O arquivo `nginx.conf` é utilizado para balancear a carga entre duas instância
 
 O arquivo `docker-compose.yml` define os serviços da aplicação, incluindo limites de CPU e memória.
 
+
 ## Como Executar os Testes
 
 ### Preparação: 
 
+pip freeze > requirements.txt
+
+docker-compose down -v
+docker-compose down
+docker-compose build
+docker-compose up -d
+docker-compose logs
+
+docker-compose exec api1 flask db init
+docker-compose exec api1 flask db migrate -m "Initial migration"
+docker-compose exec api1 flask db upgrade
+
+teste0:
+curl -X POST http://localhost:9999/pessoas \
+-H "Content-Type: application/json" \
+-d '{
+    "apelido": "josé",
+    "nome": "José Roberto",
+    "nascimento": "2000-10-01",
+    "stack": ["C#", "Node", "Oracle"]
+}'
+
+{"id":"012ccb0c-d10d-424f-9e39-d79c7c1c9ce6"}
+
+
+
+
+#### Passo 1: Instalar Gatling 
 Clone o repositório de testes do GitHub para sua máquina local:
 git clone https://github.com/zanfranceschi/rinha-de-backend-2023-q3.git
 
 Navegue até o diretório de testes dentro do repositório clonado:
 cd rinha-de-backend-2023-q3/teste/gatling
 
-#### Passo 1: Instalar Gatling 
 Execute o script de instalação:
 ./install-gatling
 
